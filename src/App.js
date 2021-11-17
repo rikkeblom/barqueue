@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Current Queue Lenght</h1>
+      <QueueContainer />
     </div>
   );
 }
 
+function QueueContainer() {
+  return (
+    <section>
+      <BeerIcon />
+      <BeerIcon />
+      <BeerIcon />
+    </section>
+  );
+}
+
+function BeerIcon() {
+  return <img alt="Beer Bottle" src="beer-bottle-svgrepo-com.svg"></img>;
+}
+
+function ImportQueueNumber() {
+  const url = "https://kea-alt-del.dk/kata-distortion/";
+
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => showQueue(data));
+
+  setTimeout(ImportQueueNumber, 10000);
+  return null;
+}
+
+function showQueue(data) {
+  let queueLenghtString = data.inQueue;
+  let queueLenght = parseInt(queueLenghtString);
+  console.log(queueLenght);
+
+  // for (let i = 0; queueLenght > i; i++) {
+  //   return <img alt="Beer Bottle" src="beer-bottle-svgrepo-com.svg"></img>;
+  // }
+}
+
+ImportQueueNumber();
 export default App;
